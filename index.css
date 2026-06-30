@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#tile-map {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: whitesmoke;
+    height: 50vh;
+    width: 80vw;
+    max-width: 600px;
+}
+
+#tile-map div {
+    background-color: black;
+    border: 1px solid black;
+    aspect-ratio: 1 / 1;
+}
