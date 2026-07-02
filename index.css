@@ -13,15 +13,12 @@ body {
 
 #tile-map {
     display: grid;
-    grid-template-columns: auto auto auto;
     background-color: whitesmoke;
-    height: 50vh;
+    height: 80vh;
     width: 80vw;
-    max-width: 600px;
+    max-width: 800px;
 }
 
 #tile-map div {
-    background-color: black;
-    border: 1px solid black;
     aspect-ratio: 1 / 1;
 }

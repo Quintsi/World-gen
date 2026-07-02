@@ -1,3 +1,5 @@
+import { perlin } from './perlin.js';
+
 const MapTiles = {
     forest : {color : "#228B22"},
     plains : {color : "#91BD59"},
@@ -7,22 +9,37 @@ const MapTiles = {
 };
 
 //determining the size of the map
-const MAP_SIZE = 36;
-const MAP_COLUMN = Math.round(Math.sqrt(MAP_SIZE)) || 1;
-const MAP_ROW = Math.ceil(MAP_SIZE / MAP_COLUMN);
+const MAP_COLUMN = 40;
+const MAP_ROW = 40;
+const MAP_SIZE = MAP_COLUMN * MAP_ROW;
 const TILE_MAP = document.getElementById("tile-map");
 
 TILE_MAP.style.gridTemplateColumns = `repeat(${MAP_COLUMN}, 1fr)`;
 TILE_MAP.style.gridTemplateRows = `repeat(${MAP_ROW}, 1fr)`;
 
-const tileTypes = Object.keys(MapTiles);
+const FREQUENCY = 0.1;
 
 for(let i = 0; i < MAP_SIZE; i++){
     const tile = document.createElement("div");
 
-    const randomType = tileTypes[Math.floor(Math.random() * tileTypes.length)];
+    const x = i % MAP_COLUMN;
+    const y = Math.floor(i / MAP_COLUMN);
 
-    tile.style.backgroundColor = MapTiles[randomType].color;
+    const noiseValue = perlin.noise(x * FREQUENCY, y * FREQUENCY);
 
+    let biome;
+    if(noiseValue < 0.3){
+        biome = MapTiles.water;
+    } else if(noiseValue < 0.45) {
+        biome = MapTiles.desert;
+    } else if(noiseValue < 0.65) {
+        biome = MapTiles.plains;
+    } else if(noiseValue < 0.85) {
+        biome = MapTiles.forest;
+    } else {
+        biome = MapTiles.mountain;
+    }
+
+    tile.style.backgroundColor = biome.color;
     TILE_MAP.appendChild(tile);
 }
